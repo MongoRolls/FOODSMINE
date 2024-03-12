@@ -23,7 +23,7 @@ export default function Search({
   }, [searchTerm]);
 
   const search = async () => {
-    term ? navigate("/search/" + term) : navigate("/");
+    term ? navigate(searchRoute + term) : navigate(defaultRoute);
   };
   return (
     <div className={classes.container} style={{ margin }}>
