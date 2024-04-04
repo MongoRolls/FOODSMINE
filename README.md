@@ -1,66 +1,138 @@
-### 本地项目启动
+## 项目简介
 
-#### backend:
 
+
+### 技术栈
+
+
+
+基于 `react-router-dom` `axios` `createContext`  `react-toastify`  `react-hook-form` `leaflet & react-leaflet` `express` `nodemon` `cors ` `jsonwebtoken` `dotenv` `bcryptjs ` `express-async-handler`等开发一款PC端「在线食品订单」 Web项目，UI 界面参考了doordash。
+
+## 预览地址
+
+
+
+- 项目在线预览地址：[https://foodsmine-1.onrender.com/](https://foodsmine-1.onrender.com/)
+
+
+
+## 界面和功能展示
+
+
+
+<img src="https://mongorolls-images.oss-cn-shenzhen.aliyuncs.com/img/image-20240404175739323.png" width="70%" height="70%" />
+
+**登录页面**
+
+<img src="https://mongorolls-images.oss-cn-shenzhen.aliyuncs.com/img/image-20240404175835899.png" width="70%" height="70%" />
+
+**商品页面**
+
+<img src="https://mongorolls-images.oss-cn-shenzhen.aliyuncs.com/img/20240404180603.png" width="70%" height="70%" />
+
+**购物车**
+
+<img src="https://mongorolls-images.oss-cn-shenzhen.aliyuncs.com/img/20240404180649.png" width="70%" height="70%" />
+
+**结算页面**
+
+<img src="https://mongorolls-images.oss-cn-shenzhen.aliyuncs.com/img/20240404180819.png" width="70%" height="70%" />
+
+**支付页面**
+
+<img src="https://mongorolls-images.oss-cn-shenzhen.aliyuncs.com/img/20240404180928.png" width="70%" height="70%" />
+
+**订单详情**
+
+<img src="https://mongorolls-images.oss-cn-shenzhen.aliyuncs.com/img/20240404181101.png" width="70%" height="70%" />
+
+**设置界面**
+
+<img src="https://mongorolls-images.oss-cn-shenzhen.aliyuncs.com/img/20240404181230.png" width="70%" height="70%" />
+
+
+
+### TO-DO-LIST
+
+* Users page
+* 管理员 Edit user
+* Email Recepit
+
+## 技术栈
+
+
+
+### 前端
+
+- `React`：用于构建用户界面的 `MVVM` 框架
+- `axios`: 发送网络请求，请求拦截和响应拦截
+- `react-router`：为单页面应用提供的路由系统
+- `react-conText`: 提供用户权限，加载页面
+- `jwt`: 实现登录注册功能
+
+
+
+web vital
+
+### 后端
+
+
+
+- `Node.js`：利用 `Express` 搭建的本地测试服务器
+
+- `env`: 隐藏配置信息,防止泄露
+
+- `bcryptjs`: 加密token
+
+- `paypal api`: 
+
+  
+
+## 构建项目
+
+### 本地
+
+- 克隆代码到本地之后
+- 分别在前后端启动项目
+- 配置`.env`信息
+
+**backend:**
+
+```
 `npm install`安装依赖
 
-`npm run dev`端口默认 5000
+`npm run dev`
+```
 
-#### frontend
+**frontend:**
 
+```
 `npm install`安装依赖
 
-`npm start`端口默认 3000
-
-###技术栈
+`npm start`
+```
 
 ### 服务器
 
-`npm run build`
+```
+npm run build
 
-`npm start`
+npm start
+```
 
-##### frontend
+### 配置信息
 
-`react-router-dom`
-
-`axios`
-`createContext`包裹全局
-
-`react-toastify` ` ToastContainer react-toastify` `react-toastify/dist/react-toastify.css`
-
-`react-router-dom`
-`react-hook-form`
-
-`leaflet & react-leaflet` 地图
-
-##### backend
-
-`express`
-
-`nodemon`
-
-`cors ` 防止跨域问题
-
-`jsonwebtoken` jwt 认证处理
-
-`dotenv` 将数据隐藏到环境变量里面
-
-`bcryptjs ` 加密数据库里面的数据
-
-`express-async-handler`简化 Express 应用程序中处理异步函数错误的流程，使得代码更加简洁和易于维护。
-
-`Multer`Node.js 中间件，用于处理 multipart/form-data 类型的表单数据，特别适用于文件上传
-
-`Cloudinary`是一个云端的媒体管理服务，主要用于存储、管理和交付图片和视频等多媒体文件。
-
-##### paypal 沙盒测试
-
+```
 TEXT_ACCOUNT = "sb-7sgtq29810274@personal.example.com"
 TEXT_PASSWWORD = "Qq6Y4nY^"
 
-MONGO_URI = "mongodb://localhost:27017/foodmine-db"
-JWT_SECRET = "xyymyylyyhklhklbkwzsyzyyedcmnyxx@@@"
-CLOUDINARY_CLOUD_NAME= "dkm0b1fsi"
-CLOUDINARY_API_KEY = "736617555893672"
-CLOUDINARY_API_SECRET= "9z1Cexlc9WQC08JNconfbUIGWno"
+
+MONGO_URI = ""
+JWT_SECRET =  "" //自己设定16-40
+CLOUDINARY_CLOUD_NAME= ""
+CLOUDINARY_API_KEY = ""
+CLOUDINARY_API_SECRET= ""
+
+
+```
+

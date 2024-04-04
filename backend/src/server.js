@@ -15,12 +15,12 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 const app = express();
 
-// app(express.json()) 敲错，查半天
 app.use(express.json());
 app.use(
   cors({
     credentials: true,
     origin: ["http://localhost:3000"],
+    // origin: ["http://127.0.0.1:3000"],
   })
 );
 
