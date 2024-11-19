@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import jwt from "jsonwebtoken";
 import { BAD_REQUEST } from "../constants/httpStatus.js";
 const router = Router();
@@ -16,7 +15,7 @@ router.post(
     const user = await UserModel.findOne({ email });
 
     if (user) {
-      res.status(BAD_REQUEST).send("User already exists, please login!");
+      res.status(BAD_REQUEST).send("用户已存在,请直接登录!");
       return;
     }
 
@@ -33,7 +32,8 @@ router.post(
     };
 
     const result = await UserModel.create(newUser);
-    res.send(generateTokenResponse(result));
+    const tokens = generateTokenResponse(result);
+    res.send(tokens);
   })
 );
 
@@ -44,11 +44,40 @@ router.post(
     const user = await UserModel.findOne({ email });
 
     if (user && (await bcrypt.compare(password, user.password))) {
-      res.send(generateTokenResponse(user));
+      const tokens = generateTokenResponse(user);
+      res.send(tokens);
       return;
     }
 
-    res.status(BAD_REQUEST).send("Username or password is invalid");
+    res.status(BAD_REQUEST).send("用户名或密码错误");
+  })
+);
+
+router.post(
+  "/refresh",
+  handler(async (req, res) => {
+    const { refreshToken } = req.body;
+    
+    if (!refreshToken) {
+      res.status(BAD_REQUEST).send("刷新令牌不存在");
+      return;
+    }
+
+    try {
+      const decoded = jwt.verify(refreshToken, process.env.JWT_REFRESH_SECRET);
+      const token = jwt.sign(
+        {
+          id: decoded.id,
+          email: decoded.email,
+          isAdmin: decoded.isAdmin,
+        },
+        process.env.JWT_SECRET,
+        { expiresIn: "1h" }
+      );
+      res.send({ token });
+    } catch (error) {
+      res.status(BAD_REQUEST).send("刷新令牌无效");
+    }
   })
 );
 
@@ -60,10 +89,11 @@ router.put(
     const user = await UserModel.findByIdAndUpdate(
       req.user.id,
       { name, address },
-      { new: true } //返回新user
+      { new: true }
     );
 
-    res.send(generateTokenResponse(user));
+    const tokens = generateTokenResponse(user);
+    res.send(tokens);
   })
 );
 
@@ -75,14 +105,14 @@ router.put(
     const user = await UserModel.findById(req.user.id);
 
     if (!user) {
-      res.status(BAD_REQUEST).send("Change Password Failed!");
+      res.status(BAD_REQUEST).send("修改密码失败!");
       return;
     }
 
     const equal = await bcrypt.compare(currentPassword, user.password);
 
     if (!equal) {
-      res.status(BAD_REQUEST).send("Current Password Is Not Correct!");
+      res.status(BAD_REQUEST).send("当前密码不正确!");
       return;
     }
 
@@ -94,7 +124,7 @@ router.put(
 );
 
 const generateTokenResponse = (user) => {
-  const token = jwt.sign(
+  const access_token = jwt.sign(
     {
       id: user.id,
       email: user.email,
@@ -102,7 +132,17 @@ const generateTokenResponse = (user) => {
     },
     process.env.JWT_SECRET,
     {
-      expiresIn: "30d",
+      expiresIn: "1h"
+    }
+  );
+
+  const refresh_token = jwt.sign(
+    {
+      id: user.id,
+    },
+    process.env.JWT_REFRESH_SECRET,
+    {
+      expiresIn: "7d"
     }
   );
 
@@ -112,7 +152,8 @@ const generateTokenResponse = (user) => {
     name: user.name,
     address: user.address,
     isAdmin: user.isAdmin,
-    token,
+    access_token,
+    refresh_token,
   };
 };
 
