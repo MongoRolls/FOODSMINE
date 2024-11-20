@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import classes from "./thumbnails.module.css";
 import StarRating from "../StarRating/StarRating";
 import Price from "../Price/Price";
+import cn from "classname";
 
 export default function Thumbnails({ foods }) {
   return (
@@ -12,16 +13,16 @@ export default function Thumbnails({ foods }) {
           <Link to={`/food/${food.id}`}>
             <img
               className={classes.image}
-              src={`${food.imageUrl}`}
+              src={food.imageUrl}
               alt={food.name}
             />
 
             <div className={classes.content}>
               <div className={classes.name}>{food.name}</div>
               <span
-                className={`${classes.favorite} ${
-                  food.favorite ? "" : classes.not
-                }`}
+                className={cn(classes.favorite, {
+                  [classes.not]: !food.favorite
+                })}
               >
                 ❤
               </span>
