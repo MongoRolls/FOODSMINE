@@ -12,8 +12,6 @@ import Input from "../../components/Input/Input";
 import Button from "../../components/Button/Button";
 import OrderItemsList from "../../components/OrderItemsList/OrderItemsList";
 import Map from "../../components/Map/Map";
-import { useLoading } from "../../hooks/useLoading";
-
 export default function CheckoutPage() {
   const { cart } = useCart();
   const { user } = useAuth();
@@ -25,6 +23,7 @@ export default function CheckoutPage() {
     formState: { errors },
     handleSubmit,
   } = useForm();
+
 
   const submit = async (data) => {
     if (!order.addressLatLng) {

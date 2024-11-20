@@ -10,7 +10,6 @@ import { useParams } from "react-router-dom";
 import Search from "../../components/Search/Search";
 import Tags from "../../components/Tags/Tags";
 import NotFound from "../../components/NotFound/NotFound";
-
 const initialState = { foods: [], tags: [] };
 
 const reducer = (state, action) => {
@@ -44,6 +43,7 @@ export default function HomePage() {
       dispatch({ type: "FOODS_LOADED", payload: foods })
     );
   }, [searchTerm, tag]);
+
 
   return (
     <>

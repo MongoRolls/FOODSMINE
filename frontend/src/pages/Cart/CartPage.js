@@ -8,6 +8,7 @@ import NotFound from "../../components/NotFound/NotFound";
 
 export default function CartPage() {
   const { cart, removeFromCart, changeQuantity } = useCart();
+  // 打印到控制台
   return (
     <>
       <Title title="Cart page" margin="1.5rem 0 0 2.5rem" />
